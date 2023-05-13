@@ -7,5 +7,5 @@ const { join } = require('node:path');
 // eslint-disable-next-line unicorn/prefer-top-level-await
 (async () => {
   const { default: esbuildx } = await import('@node-loaders/esbuildx');
-  await esbuildx(join(__dirname, './cli.cjs'));
+  await esbuildx(join(__dirname, './sample.js'));
 })();

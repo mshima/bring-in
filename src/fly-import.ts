@@ -182,7 +182,7 @@ export const getConfig = (): RepositoryConfig => ({ ...defaultConfig });
 
 export const getDefaultRepository = () => defaultRepository;
 
-export const npmInstall = async (specifier: string, options?: RepositoryConfig) => {
+export const flyInstall = async (specifier: string, options?: RepositoryConfig) => {
   let repo = defaultRepository;
   if (options) {
     repo = new Repository({ ...defaultConfig, ...options });

@@ -3,7 +3,7 @@ import { rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect } from 'esmocha';
-import { defineConfig, getConfig, resetConfig, npmInstall, flyImport, getDefaultRepository, type Repository } from '../src/fly-import.js';
+import { defineConfig, getConfig, resetConfig, flyInstall, flyImport, getDefaultRepository, type Repository } from '../src/fly-import.js';
 
 const testRepositoryPath = join(fileURLToPath(import.meta.url), '../repository');
 
@@ -41,7 +41,7 @@ describe('fly-import', () => {
 
     describe('install', () => {
       it('should install package', async () => {
-        const installed = await npmInstall('camelcase3@npm:camelcase@7.0.0');
+        const installed = await flyInstall('camelcase3@npm:camelcase@7.0.0');
         expect(installed).toMatchObject({
           name: 'camelcase3',
           packageName: 'camelcase',
@@ -53,7 +53,7 @@ describe('fly-import', () => {
       });
 
       it('should install package passing options', async () => {
-        const installed = await npmInstall('camelcase3@npm:camelcase@7.0.0', { repositoryPath: `${testRepositoryPath}/sub` });
+        const installed = await flyInstall('camelcase3@npm:camelcase@7.0.0', { repositoryPath: `${testRepositoryPath}/sub` });
         expect(installed).toMatchObject({
           name: 'camelcase3',
           packageName: 'camelcase',
@@ -65,7 +65,7 @@ describe('fly-import', () => {
       });
 
       it('should fail to install not existing package', async () => {
-        await expect(npmInstall('camelcase3@npm:camelcase@20.0.0')).rejects.toThrowError(/No matching version found for/);
+        await expect(flyInstall('camelcase3@npm:camelcase@20.0.0')).rejects.toThrowError(/No matching version found for/);
       });
     });
 

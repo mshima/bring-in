@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/loader.js"
+      "default": "./dist/index.js"
     }
   },
   "main": "./dist/loader.js",
