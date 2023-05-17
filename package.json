@@ -28,7 +28,6 @@
     "test": "c8 esmocha"
   },
   "dependencies": {
-    "@node-loaders/core": "^1.0.1",
     "@npmcli/arborist": "^6.2.9",
     "env-paths": "^3.0.0"
   },
