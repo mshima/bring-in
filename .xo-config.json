@@ -18,6 +18,7 @@
       "rules": {
         "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
+        "unicorn/no-empty-file": "off",
         "@typescript-eslint/no-unsafe-assignment": "off"
       }
     }
