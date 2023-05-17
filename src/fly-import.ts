@@ -7,9 +7,9 @@ import Arborist from '@npmcli/arborist';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { cache: DEFAULT_REPOSITORY_PATH } = envPaths('fly-import');
 
-const defaultConfig: RepositoryConfig = { repositoryPath: DEFAULT_REPOSITORY_PATH };
+const defaultConfig: FlyRepositoryConfig = { repositoryPath: DEFAULT_REPOSITORY_PATH };
 
-export type RepositoryConfig = {
+export type FlyRepositoryConfig = {
   repositoryPath: string;
   arboristConfig?: any;
 };
@@ -34,19 +34,19 @@ type NotIntalledPackage = {
   import: <T = any>() => Promise<T>;
 };
 
-export type ResultPackage = NotIntalledPackage | IntalledPackage;
+export type FlyResultPackage = NotIntalledPackage | IntalledPackage;
 
 /**
  * @private
  */
-export class Repository {
+export class FlyRepository {
   private readonly arboristConfig: any;
   private _arborist?: Arborist;
   private _repositoryPath!: string;
   private nodeModulesPath!: string;
   private _require?: NodeRequire;
 
-  constructor(config: RepositoryConfig) {
+  constructor(config: FlyRepositoryConfig) {
     this.repositoryPath = config.repositoryPath;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.arboristConfig = config.arboristConfig;
@@ -99,9 +99,9 @@ export class Repository {
     return this.#arborist.loadActual();
   }
 
-  async install(spec: string): Promise<ResultPackage>;
-  async install(spec: string[]): Promise<ResultPackage[]>;
-  async install(spec: string | string[]): Promise<ResultPackage[] | ResultPackage> {
+  async install(spec: string): Promise<FlyResultPackage>;
+  async install(spec: string[]): Promise<FlyResultPackage[]>;
+  async install(spec: string | string[]): Promise<FlyResultPackage[] | FlyResultPackage> {
     const specs = Array.isArray(spec) ? spec : [spec];
     await this.#arborist.reify({ add: specs });
     const installed = this.findSpecs(specs);
@@ -122,7 +122,7 @@ export class Repository {
     return pathToFileURL(this.#require.resolve(realpath)).href;
   }
 
-  private findSpecs(specs: string[]): ResultPackage[] {
+  private findSpecs(specs: string[]): FlyResultPackage[] {
     const edgesOut = new Map<string, string>();
     for (const edgeOut of this.#tree.edgesOut) {
       // Type is not correct.
@@ -162,14 +162,14 @@ export class Repository {
   }
 }
 
-let defaultRepository = new Repository(defaultConfig);
+let defaultRepository = new FlyRepository(defaultConfig);
 
 export const resetConfig = () => {
   Object.assign(defaultConfig, { repositoryPath: DEFAULT_REPOSITORY_PATH, arboristConfig: undefined });
-  defaultRepository = new Repository(defaultConfig);
+  defaultRepository = new FlyRepository(defaultConfig);
 };
 
-export const defineConfig = (config: Partial<RepositoryConfig>) => {
+export const defineConfig = (config: Partial<FlyRepositoryConfig>) => {
   if (config.repositoryPath) {
     defaultConfig.repositoryPath = config.repositoryPath;
   }
@@ -179,26 +179,26 @@ export const defineConfig = (config: Partial<RepositoryConfig>) => {
     defaultConfig.arboristConfig = config.arboristConfig;
   }
 
-  defaultRepository = new Repository(defaultConfig);
+  defaultRepository = new FlyRepository(defaultConfig);
 };
 
-export const getConfig = (): RepositoryConfig => ({ ...defaultConfig });
+export const getConfig = (): FlyRepositoryConfig => ({ ...defaultConfig });
 
 export const getDefaultRepository = () => defaultRepository;
 
-export const flyInstall = async (specifier: string, options?: RepositoryConfig) => {
+export const flyInstall = async (specifier: string, options?: FlyRepositoryConfig) => {
   let repo = defaultRepository;
   if (options) {
-    repo = new Repository({ ...defaultConfig, ...options });
+    repo = new FlyRepository({ ...defaultConfig, ...options });
   }
 
   return repo.install(specifier);
 };
 
-export const flyImport = async <T = any>(specifier: string, options?: RepositoryConfig): Promise<T> => {
+export const flyImport = async <T = any>(specifier: string, options?: FlyRepositoryConfig): Promise<T> => {
   let repo = defaultRepository;
   if (options) {
-    repo = new Repository({ ...defaultConfig, ...options });
+    repo = new FlyRepository({ ...defaultConfig, ...options });
   }
 
   await repo.install(specifier);
