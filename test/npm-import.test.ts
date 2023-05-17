@@ -41,6 +41,15 @@ describe('fly-import', () => {
 
     describe('install', () => {
       it('should install package', async () => {
+        const installed = await flyInstall('camelcase');
+        expect(installed).toMatchObject({
+          packageName: 'camelcase',
+          path: /camelcase$/,
+          realpath: /camelcase$/,
+        });
+      });
+
+      it('should install package using custom package name', async () => {
         const installed = await flyInstall('camelcase3@npm:camelcase@7.0.0');
         expect(installed).toMatchObject({
           name: 'camelcase3',

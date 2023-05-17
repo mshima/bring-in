@@ -127,7 +127,11 @@ export class Repository {
     for (const edgeOut of this.#tree.edgesOut) {
       // Type is not correct.
       const edge = (edgeOut as any)[1] as Arborist.Edge;
-      edgesOut.set(`${edge.name}@${edge.spec}`, edge.name);
+      if (edge.spec === '*' && specs.includes(edge.name)) {
+        edgesOut.set(edge.name, edge.name);
+      } else {
+        edgesOut.set(`${edge.name}@${edge.spec}`, edge.name);
+      }
     }
 
     return specs.map(spec => {
