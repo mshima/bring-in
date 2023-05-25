@@ -3,6 +3,8 @@ import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import envPaths from 'env-paths';
 import Arborist from '@npmcli/arborist';
+import registryUrl from 'registry-url';
+import registryAuthToken from 'registry-auth-token';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { cache: DEFAULT_REPOSITORY_PATH } = envPaths('fly-import');
@@ -54,10 +56,14 @@ export class FlyRepository {
 
   get #arborist() {
     if (!this._arborist) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const registry: string = this.arboristConfig?.registry ?? registryUrl();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this._arborist = new Arborist({
         global: true,
         path: this.repositoryPath,
+        token: registry ? registryAuthToken(registry) : undefined,
+        registry,
         ...this.arboristConfig,
       });
     }

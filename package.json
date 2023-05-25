@@ -29,7 +29,9 @@
   },
   "dependencies": {
     "@npmcli/arborist": "^6.2.9",
-    "env-paths": "^3.0.0"
+    "env-paths": "^3.0.0",
+    "registry-auth-token": "^5.0.2",
+    "registry-url": "^6.0.1"
   },
   "devDependencies": {
     "@node-loaders/esbuildx": "^1.2.0",
