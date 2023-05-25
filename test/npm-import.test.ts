@@ -3,7 +3,15 @@ import { rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect } from 'esmocha';
-import { defineConfig, getConfig, resetConfig, flyInstall, flyImport, getDefaultRepository, type Repository } from '../src/fly-import.js';
+import {
+  defineConfig,
+  getConfig,
+  resetConfig,
+  flyInstall,
+  flyImport,
+  getDefaultRepository,
+  type FlyRepository,
+} from '../src/fly-import.js';
 
 const testRepositoryPath = join(fileURLToPath(import.meta.url), '../repository');
 
@@ -93,7 +101,7 @@ describe('fly-import', () => {
     });
 
     describe('repository', () => {
-      let repository: Repository;
+      let repository: FlyRepository;
       beforeEach(() => {
         repository = getDefaultRepository();
       });
