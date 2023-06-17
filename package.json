@@ -17,7 +17,6 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "bin": "./dist/bin.cjs",
   "files": [
     "dist"
   ],
