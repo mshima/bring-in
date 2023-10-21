@@ -6,6 +6,9 @@ tabWidth: 2
 useTabs: false
 trailingComma: all
 
+plugins:
+  - prettier-plugin-packagejson
+
 # js and ts rules:
 arrowParens: avoid
 

@@ -1,8 +1,7 @@
-/* eslint-disable max-nested-callbacks */
 import { rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect } from 'esmocha';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
   defineConfig,
   getConfig,

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable unicorn/prefer-top-level-await */
 
 (async () => {
   const { FlyRepository, getConfig } = await import('../src/fly-import.js');
