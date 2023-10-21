@@ -28,7 +28,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@npmcli/arborist": "^6.2.9",
+    "@npmcli/arborist": "^7.2.0",
     "env-paths": "^3.0.0",
     "registry-auth-token": "^5.0.2",
     "registry-url": "^6.0.1"
@@ -46,6 +46,6 @@
     "xo": "^0.56.0"
   },
   "engines": {
-    "node": "^16.13.0 || >=18.12.0"
+    "node": "^16.14.0 || >=18.0.0"
   }
 }
