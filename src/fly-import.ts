@@ -119,12 +119,7 @@ export class FlyRepository {
   }
 
   private async resolve(realpath: string) {
-    // Node's import.resolve is experimental and not enabled
-    /* c8 ignore next 3 */
-    if (import.meta.resolve) {
-      return import.meta.resolve(pathToFileURL(realpath).href, pathToFileURL(this.nodeModulesPath).href);
-    }
-
+    // Node's import.meta.resolve is experimental and not enabled
     return pathToFileURL(this.#require.resolve(realpath)).href;
   }
 
