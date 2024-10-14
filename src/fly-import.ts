@@ -80,9 +80,7 @@ export class FlyRepository {
   }
 
   get #require() {
-    if (!this._require) {
-      this._require = createRequire(pathToFileURL(join(this.nodeModulesPath)).href);
-    }
+    this._require ||= createRequire(pathToFileURL(join(this.nodeModulesPath)).href);
 
     return this._require;
   }
